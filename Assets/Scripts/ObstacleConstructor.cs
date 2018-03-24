@@ -56,14 +56,13 @@ public class ObstacleConstructor : MonoBehaviour
       float jumpLocationToReachPlatform = currentLeftBoundary + playerWidth - distanceOfJump;
       float jumpLocationAtLastMoment = previousRightBoundary + distanceOfJump;
 
-      float minPosition = 0;
-
+      float minPosition = currentLeftBoundary;
+      float maxPosition = currentRightBoundary;
 
       if (previousSpike != null) 
       {
          float spikeWidth = previousSpike.GetComponent<BoxCollider2D>().size.x;
          float lastMomentJump = jumpLocationToReachPlatform - (previousSpike.transform.position.x + (spikeWidth / 2));
-         float distanceToEdgeFromSpike = previousRightBoundary - (previousSpike.transform.position.x + (spikeWidth / 2));
 
          if (lastMomentJump > playerWidth * 1.5f) 
          {
@@ -78,14 +77,15 @@ public class ObstacleConstructor : MonoBehaviour
             Debug.Log("Not here");
          }
 
-      }
-      else 
-      {
-         minPosition = currentLeftBoundary;
+         // Isn't right but should be good enough for now to setup next jump
+         if ((jumpLocationAtLastMoment - (spikeWidth * 1.5f) + distanceOfJump) < currentRightBoundary)
+         {
+            // If this is true, youre fucked. Well if I used previous spike stuff but that should be prevented by this.
+            maxPosition -= (playerWidth * 1.5f);
+         }
       }
 
-      Vector3 randomPosition = new Vector3(Random.Range(minPosition, currentRightBoundary), -3.1f);
-
+      Vector3 randomPosition = new Vector3(Random.Range(minPosition, maxPosition), -3.1f);
       previousSpike = ObjectPooler.instance.ReuseObject(prefab, randomPosition, transform.rotation);
 
       return false;
