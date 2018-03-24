@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerControl : MonoBehaviour {
+public class PlayerControl : MonoBehaviour 
+{
 	private LayerMask ground;
+	private LayerMask bound;
 	private bool grounded;
 	private const float jumpForce = 15;
 	private const float moveSpeed = 5;
@@ -12,8 +14,10 @@ public class PlayerControl : MonoBehaviour {
 	private Animator myAnimator;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+   {
 		ground = LayerMask.GetMask ("Ground");
+		bound = LayerMask.GetMask ("Bound");
 		grounded = false;
 
 		myRigidbody = GetComponent<Rigidbody2D>();
@@ -22,12 +26,20 @@ public class PlayerControl : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+   {
 		grounded = Physics2D.IsTouchingLayers (myCollider, ground);
 
 		float upVel = myRigidbody.velocity.y;
-		if (grounded && (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0))) {
+		if (grounded && (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0))) 
+      {
 			upVel = jumpForce;
+		} 
+		else if (Physics2D.IsTouchingLayers (myCollider, bound)) 
+      {
+			if (Input.GetKeyDown (KeyCode.R)) {
+				respawnPlayerDebug ();
+			}
 		}
 		myRigidbody.velocity = new Vector2 (moveSpeed, upVel);
 
@@ -39,4 +51,11 @@ public class PlayerControl : MonoBehaviour {
    {
       return jumpForce;
    }
+		
+	//"Respawn" the player, for debugging purposes only
+	void respawnPlayerDebug () 
+   {
+		Vector2 respawnPosition = new Vector2 (Camera.main.transform.position.x, Camera.main.transform.position.y + myRigidbody.GetComponent<Renderer>().bounds.size.y);
+		myRigidbody.position = respawnPosition;
+	}
 }
