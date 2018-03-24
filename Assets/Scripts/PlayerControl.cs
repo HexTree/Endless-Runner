@@ -2,11 +2,10 @@
 using System.Collections;
 
 public class PlayerControl : MonoBehaviour {
-
-	public float moveSpeed;
-	public float jumpForce;
-	public bool grounded;
-	public LayerMask ground;
+	private LayerMask ground;
+	private bool grounded;
+	private float jumpForce;
+	private float moveSpeed;
 
 	private Rigidbody2D myRigidbody;
 	private Collider2D myCollider;
@@ -14,9 +13,11 @@ public class PlayerControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		moveSpeed = 5;
-		jumpForce = 15;
+		ground = LayerMask.GetMask ("Ground");
 		grounded = false;
+		jumpForce = 15;
+		moveSpeed = 5;
+
 		myRigidbody = GetComponent<Rigidbody2D>();
 		myCollider = GetComponent<Collider2D> ();
 		myAnimator = GetComponent<Animator> ();
