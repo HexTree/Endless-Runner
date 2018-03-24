@@ -38,7 +38,7 @@ public class PlayerControl : MonoBehaviour
 		else if (Physics2D.IsTouchingLayers (myCollider, bound)) 
       {
 			if (Input.GetKeyDown (KeyCode.R)) {
-				respawnPlayerDebug ();
+				RespawnPlayerDebug();
 			}
 		}
 		myRigidbody.velocity = new Vector2 (moveSpeed, upVel);
@@ -53,7 +53,7 @@ public class PlayerControl : MonoBehaviour
    }
 		
 	//"Respawn" the player, for debugging purposes only
-	void respawnPlayerDebug () 
+	private void RespawnPlayerDebug() 
    {
 		Vector2 respawnPosition = new Vector2 (Camera.main.transform.position.x, Camera.main.transform.position.y + myRigidbody.GetComponent<Renderer>().bounds.size.y);
 		myRigidbody.position = respawnPosition;

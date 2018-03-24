@@ -39,6 +39,7 @@ public class ObjectPooler : MonoBehaviour {
 
       if (poolDictionary.ContainsKey(poolKey)) {
          ObjectInstance objectToReuse = poolDictionary[poolKey].Dequeue();
+         // TODO Need out if nothing is available.  Create a new slot.
          while (objectToReuse.gameObject.activeSelf == true)
          {
             poolDictionary[poolKey].Enqueue(objectToReuse);

@@ -43,6 +43,7 @@ public class PlatformConstructor : MonoBehaviour
 
          // Create any obstacles on the platforms
          obstacleConstructor.ConstructObject(previousPlatform, currentPlatform.transform);
+         previousPlatform = currentPlatform.transform;
       }		
 	}
 }
