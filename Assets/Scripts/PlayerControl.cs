@@ -34,7 +34,6 @@ public class PlayerControl : MonoBehaviour {
 			upVel = jumpForce;
 		} 
 		else if (Physics2D.IsTouchingLayers (myCollider, bound)) {
-			Debug.Log ("Press R to respawn :D");
 			if (Input.GetKeyDown (KeyCode.R)) {
 				respawnPlayerDebug ();
 			}
