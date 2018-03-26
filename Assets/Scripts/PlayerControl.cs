@@ -43,41 +43,41 @@ public class PlayerControl : MonoBehaviour
     // All input detection and anything not directly related to physics here.
 	void Update () 
     {
-		grounded = Physics2D.IsTouchingLayers (myCollider, ground);
+	    grounded = Physics2D.IsTouchingLayers (myCollider, ground);
 
 		if (Physics2D.IsTouchingLayers (myCollider, bound)) 
         {
 			if (Input.GetKeyDown (KeyCode.R))
-            {
+            {	
 				RespawnPlayerDebug();
 			}
 		}
 
-        if (grounded)
-        {
-            jumpTimeCounter = JUMP_TIME;
-        }
+		if (grounded)
+		{
+		    jumpTimeCounter = JUMP_TIME;
+		}
 
-        if (grounded && Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-        {
-            initialJump = true;
-        }
+		if (grounded && Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+		{
+		    initialJump = true;
+		}
 
-        jumpButtonHeld = Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0);
+		jumpButtonHeld = Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0);
 
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
-        {
-            jumpButtonReleased = true;
-        }
+		if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
+		{
+		    jumpButtonReleased = true;
+		}
 
-        myAnimator.SetBool("Grounded", grounded);
+		myAnimator.SetBool("Grounded", grounded);
     }
 
     // Alterations to velocity and other physics here. Input Booleans determined in Update().
     void FixedUpdate()
     {
 
-        myRigidbody.velocity = new Vector2(MOVE_SPEED, myRigidbody.velocity.y);
+   		myRigidbody.velocity = new Vector2(MOVE_SPEED, myRigidbody.velocity.y);
 
         // Does initial min jump if grounded and jump button pressed.
         if (initialJump)
