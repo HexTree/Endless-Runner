@@ -2,21 +2,27 @@
 
 public class PlayerControl : MonoBehaviour 
 {
+    // Jump Mechanic Constants
+    private const float JUMP_FORCE = 10f; // Affects min jump, speed of continuous jump, and inevitably height.
+    private const float MOVE_SPEED = 5f;
+    private const float JUMP_TIME = .25f; // Affects max airtime of jump and max jump height.
+    private const float FALL_MULTIPLIER = 2f; // Affects fall speed after full jump.
+    private const float LOW_JUMP_MULTIPLIER = 1.5f; // Affects fall speed after all other jumps. (should be lower than above)
+
+    // Ground Detection Variables
 	private LayerMask ground;
+    private bool grounded;
 	private LayerMask bound;
-	private bool grounded;
+	
+    // Jump Mechanic Variables
     private bool initialJump;
     private bool stoppedJumping;
     private bool jumpButtonHeld;
     private bool jumpButtonReleased;
-	private const float JUMP_FORCE = 10f; // Affects min jump, speed of continuous jump, and inevitably height.
-	private const float MOVE_SPEED = 5f;
-    private const float JUMP_TIME = .25f; // Affects max airtime of jump and max jump height.
     private float jumpTimeCounter = 0f;
-    private const float FALL_MULTIPLIER = 2f; // Affects fall speed after full jump.
-    private const float LOW_JUMP_MULTIPLIER = 1.5f; // Affects fall speed after all other jumps. (should be lower than above)
     private float normalGravity;
 
+    // Player Variables
 	private Rigidbody2D myRigidbody;
 	private Collider2D myCollider;
 	private Animator myAnimator;
@@ -128,7 +134,7 @@ public class PlayerControl : MonoBehaviour
     //TODO: Adjust this getter for Obstacle Contstuctor
     public float GetJumpForce()
     {
-      return JUMP_FORCE;
+        return JUMP_FORCE;
     }
 		
 	//"Respawn" the player, for debugging purposes only
