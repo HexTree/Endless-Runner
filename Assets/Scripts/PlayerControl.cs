@@ -64,7 +64,7 @@ public class PlayerControl : MonoBehaviour
 		    jumpTimeCounter = JUMP_TIME;
 		}
 
-		if (grounded && Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+		if (grounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
 		{
 		    initialJump = true;
 		}
